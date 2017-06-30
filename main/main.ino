@@ -9,9 +9,11 @@
 #define BLINK_DELAY 64
 #define WDG_COUNT 30
 #define IDLE_DELAY 50
+#define SENT_BYTES_LENGTH 5
 
 #define ENABLE_SERIAL false
 #define ENABLE_OBJENIOUS true
+#define ENABLE_SEND_ADC_VALUES false
 
 TheAirBoard board;
 
@@ -41,11 +43,12 @@ void loop()
 {
   if (wdgIndex == WDG_COUNT) {
     turnLedsOn();
-    byte batteryLevelBytes[5];
+    byte batteryLevelBytes[SENT_BYTES_LENGTH];
     getBatteryData(batteryLevelBytes);
         
-    sendOnSerial(batteryLevelBytes);
+    sendOnSerial(batteryLevelBytes, SENT_BYTES_LENGTH);
     sendOnObjenious(batteryLevelBytes);
+    sendADCValues();
     sleepAfterSend();
     
   } else {
@@ -76,7 +79,7 @@ void idleBlink() {
 
 void sendOnObjenious(byte batteryLevelBytes[]) {
   if (ENABLE_OBJENIOUS) {
-    sendData(batteryLevelBytes);
+    sendData(batteryLevelBytes, SENT_BYTES_LENGTH);
   }
 }
 

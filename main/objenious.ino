@@ -49,8 +49,8 @@ void manageObjeniousLeds(armError_t err) {
   }
 }
 
-void sendData(byte bytes[]) {
-  Objenious.Send(bytes, sizeof(bytes));
+void sendData(byte bytes[], int arrayLength) {
+  Objenious.Send(bytes, arrayLength);
 }
 
 

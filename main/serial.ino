@@ -13,9 +13,9 @@ void sendWdgIndex() {
   }
 }
 
-void sendOnSerial(byte* batteryLevelBytes) {
+void sendOnSerial(byte* batteryLevelBytes, int arrayLength) {
   if (ENABLE_SERIAL) {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < arrayLength; i++) {
       Serial.print(batteryLevelBytes[i], DEC);
       Serial.print("-");
     }
