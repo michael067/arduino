@@ -12,6 +12,7 @@
 #define SENT_BYTES_LENGTH 5
 
 #define ENABLE_SERIAL false
+#define ENABLE_SOFTWARE_SERIAL false
 #define ENABLE_OBJENIOUS true
 #define ENABLE_SEND_ADC_VALUES false
 
@@ -30,6 +31,7 @@ void setup()
 {
   initLeds();
   initSerial();
+  initSoftwareSerial();
   if (ENABLE_OBJENIOUS) {
     initObjeniousWithLeds();
   }

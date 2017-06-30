@@ -3,23 +3,22 @@
 #define USB_MIDDLE_COMP 500
 
 boolean usbPlugged() {
-  return analogRead(VUSB) > USB_MIDDLE_COMP ? true:false;
+  return getVUSB() > USB_MIDDLE_COMP ? true:false;
 }
 
 float batteryLevel() {
-  return 3.3 * analogRead(VBAT) / 1024 + VF;
+  return 3.3 * getVBAT() / 1024 + VF;
 }
 
 boolean isBatteryLow() {
   return batteryLevel() < LOWBAT;
 }
 
-void sendADCValues() {
-  if ((ENABLE_SEND_ADC_VALUES) && (ENABLE_SERIAL)) {
-    Serial.print("## VUSB : ");
-    Serial.print(analogRead(VUSB));
-    Serial.print(" ## VBAT : ");
-    Serial.println(analogRead(VBAT));
-  }
+int getVUSB() {
+  return analogRead(VUSB);
+}
+
+int getVBAT() {
+  return analogRead(VBAT);
 }
 
