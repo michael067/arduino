@@ -135,7 +135,7 @@ void checkObjeniousReset() {
     turnBlueLedON();
     turnGreenLedON();
     sendObjeniousReset();
-    // reset objenious
+    rebootObjenious();
     board.setWatchdog(DELAY_1S);
     board.powerDown();   
     // sleeping...
