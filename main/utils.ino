@@ -1,14 +1,19 @@
+#define VOLT_1_INDEX  0
+#define VOLT_2_INDEX  1
+#define USB_INDEX     2
+#define LOW_BAT_INDEX 3
+
 void floatToByte(float source, byte* returnBytes) {
-  returnBytes[0] = byte(source);
-  returnBytes[1] = byte(source * 10 - returnBytes[0] * 10);
-  returnBytes[2] = byte(source * 100 - returnBytes[0] * 100 - returnBytes[1] * 10);
+  int intVolt = int(source * 100);  
+  returnBytes[VOLT_1_INDEX] = byte(intVolt >> 8);
+  returnBytes[VOLT_2_INDEX] = byte(intVolt);
 }
 
 void getBatteryData(byte* batteryLevelBytes) {
   float batLevel = batteryLevel();    
   floatToByte(batLevel, batteryLevelBytes);
-  batteryLevelBytes[3] = usbPlugged();
-  batteryLevelBytes[4] = isBatteryLow();
+  batteryLevelBytes[USB_INDEX] = usbPlugged();
+  batteryLevelBytes[LOW_BAT_INDEX] = isBatteryLow();
 }
 
 

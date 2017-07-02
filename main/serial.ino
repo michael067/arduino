@@ -39,11 +39,11 @@ void sendWdgIndex() {
 void sendOnSerial(byte* batteryLevelBytes, int arrayLength) {
   for (int i = 0; i < arrayLength; i++) {
     if (ENABLE_SERIAL) {    
-      Serial.print(batteryLevelBytes[i], DEC);
+      Serial.print(batteryLevelBytes[i], HEX);
       Serial.print("-");
     }
     if (ENABLE_SOFTWARE_SERIAL) {    
-      softwareSerial.print(batteryLevelBytes[i], DEC);
+      softwareSerial.print(batteryLevelBytes[i], HEX);
       softwareSerial.print("-");
     }
   }
@@ -76,3 +76,30 @@ void sendADCValues() {
     }
   }
 }
+
+void sendObjeniousIndex(int index) {
+  if (SEND_OBJENIOUS_INDEX) {
+    if (ENABLE_SERIAL) {
+      Serial.print("## Objenious index : ");
+      Serial.println(index);
+    }
+
+    if (ENABLE_SOFTWARE_SERIAL) {
+      softwareSerial.print("## Objenious index : ");
+      softwareSerial.println(index);
+    }
+  }  
+}
+
+void sendObjeniousReset() {
+  if (SEND_OBJENIOUS_INDEX) {
+    if (ENABLE_SERIAL) {
+      Serial.println("## Objenious reset...");
+    }
+
+    if (ENABLE_SOFTWARE_SERIAL) {
+      softwareSerial.print("## Objenious index : ");
+    }
+  }  
+}
+

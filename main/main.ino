@@ -4,17 +4,57 @@
 #include <TheAirBoard.h>
 #include <ATIM_LoRa.h> //ATIM library for LoRaWAN connection
 
-#define DELAY_8S 8000
-#define DELAY_1S 1000
-#define BLINK_DELAY 64
-#define WDG_COUNT 30
-#define IDLE_DELAY 50
-#define SENT_BYTES_LENGTH 5
+// ---------------------------------
+// Debug flags
+// ---------------------------------
+// uncomment for debug
+//#define DELAY_8S      4000
+//#define WDG_COUNT     5
+//#define ENABLE_SERIAL true
+//#define ENABLE_SEND_ADC_VALUES true
+//#define ENABLE_SOFTWARE_SERIAL true
+//#define SEND_OBJENIOUS_INDEX true
+//#define OBJENIOUS_MESSAGE_THRESHOLD 3
 
+
+#ifndef DELAY_8S
+#define DELAY_8S      8000
+#endif
+
+#define DELAY_1S      1000
+#define BLINK_DELAY   64
+
+#ifndef WDG_COUNT
+#define WDG_COUNT     30
+#endif
+
+#define IDLE_DELAY    50
+#define SENT_BYTES_LENGTH 4
+#ifndef OBJENIOUS_MESSAGE_THRESHOLD
+#define OBJENIOUS_MESSAGE_THRESHOLD 100
+#endif
+
+#ifndef ENABLE_SERIAL
 #define ENABLE_SERIAL false
+#else
+#define ENABLE_OBJENIOUS false
+#endif
+
+#ifndef ENABLE_SOFTWARE_SERIAL
 #define ENABLE_SOFTWARE_SERIAL false
+#endif
+
+#ifndef ENABLE_OBJENIOUS
 #define ENABLE_OBJENIOUS true
+#endif
+
+#ifndef ENABLE_SEND_ADC_VALUES
 #define ENABLE_SEND_ADC_VALUES false
+#endif
+
+#ifndef SEND_OBJENIOUS_INDEX
+#define SEND_OBJENIOUS_INDEX false
+#endif
 
 TheAirBoard board;
 
@@ -23,6 +63,8 @@ volatile int wdgIndex;;
 ISR(WDT_vect) {
   wdgIndex++;
 }
+
+int objeniousMessageCount = 0;
 
 // ---------------------------------------------------------------------
 // Config
@@ -44,6 +86,7 @@ void setup()
 void loop()
 {
   if (wdgIndex == WDG_COUNT) {
+    checkObjeniousReset();
     turnLedsOn();
     byte batteryLevelBytes[SENT_BYTES_LENGTH];
     getBatteryData(batteryLevelBytes);
@@ -82,9 +125,26 @@ void idleBlink() {
 void sendOnObjenious(byte batteryLevelBytes[]) {
   if (ENABLE_OBJENIOUS) {
     sendData(batteryLevelBytes, SENT_BYTES_LENGTH);
+    sendObjeniousIndex(objeniousMessageCount);
+    objeniousMessageCount++;
   }
 }
 
+void checkObjeniousReset() {
+  if (ENABLE_OBJENIOUS && objeniousMessageCount == OBJENIOUS_MESSAGE_THRESHOLD) {
+    turnBlueLedON();
+    turnGreenLedON();
+    sendObjeniousReset();
+    // reset objenious
+    board.setWatchdog(DELAY_1S);
+    board.powerDown();   
+    // sleeping...
+    wdgIndex--;
+    board.setWatchdog(DELAY_8S);    
+    turnBlueLedOFF();
+    turnGreenLedOFF();
+  }
+}
 
 
 
