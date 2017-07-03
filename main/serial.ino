@@ -60,19 +60,24 @@ void sendADCValues() {
   if (ENABLE_SEND_ADC_VALUES) {
     int vusb = getVUSB();
     int vbat = getVBAT();
+    int vtherm = getADCThermValue();
     
     if (ENABLE_SERIAL) {
       Serial.print("## VUSB : ");
-      Serial.print(vusb);
+      Serial.print(vusb, HEX);
       Serial.print(" ## VBAT : ");
-      Serial.println(vbat);
+      Serial.print(vbat, HEX);
+      Serial.print(" ## Therm : ");
+      Serial.println(vtherm, HEX);
     }
 
     if (ENABLE_SOFTWARE_SERIAL) {
       softwareSerial.print("## VUSB : ");
-      softwareSerial.print(vusb);
+      softwareSerial.print(vusb, HEX);
       softwareSerial.print(" ## VBAT : ");
-      softwareSerial.println(vbat);
+      softwareSerial.print(vbat, HEX);
+      softwareSerial.print(" ## Therm : ");
+      softwareSerial.println(vtherm, HEX);
     }
   }
 }

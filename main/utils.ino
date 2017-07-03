@@ -1,7 +1,8 @@
 #define VOLT_1_INDEX  0
 #define VOLT_2_INDEX  1
 #define BATTERY_STATS_INDEX 2
-#define LOW_BAT_INDEX 3
+#define THERM_DATA_1  3
+#define THERM_DATA_2  4
 
 void floatToByte(float source, byte* returnBytes) {
   int intVolt = int(source * 100);  
@@ -16,4 +17,8 @@ void getBatteryData(byte* batteryLevelBytes) {
   batteryLevelBytes[BATTERY_STATS_INDEX] += (isBatteryLow()) ? 0x01 : 0x00; 
 }
 
-
+void getThermData(byte* batteryLevelBytes) {
+  int therm = parseThermistor(getADCThermValue()) * 100;    
+  batteryLevelBytes[THERM_DATA_1] = byte(therm >> 8);
+  batteryLevelBytes[THERM_DATA_2] = byte(therm); 
+}

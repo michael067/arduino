@@ -29,7 +29,7 @@
 #endif
 
 #define IDLE_DELAY    50
-#define SENT_BYTES_LENGTH 3
+#define SENT_BYTES_LENGTH 5
 #ifndef OBJENIOUS_MESSAGE_THRESHOLD
 #define OBJENIOUS_MESSAGE_THRESHOLD 100
 #endif
@@ -74,6 +74,7 @@ void setup()
   initLeds();
   initSerial();
   initSoftwareSerial();
+  initTherm();
   if (ENABLE_OBJENIOUS) {
     initObjeniousWithLeds();
   }
@@ -88,11 +89,12 @@ void loop()
   if (wdgIndex == WDG_COUNT) {
     checkObjeniousReset();
     turnLedsOn();
-    byte batteryLevelBytes[SENT_BYTES_LENGTH];
-    getBatteryData(batteryLevelBytes);
-        
-    sendOnSerial(batteryLevelBytes, SENT_BYTES_LENGTH);
-    sendOnObjenious(batteryLevelBytes);
+    byte data[SENT_BYTES_LENGTH];
+    getBatteryData(data);
+    getThermData(data);
+    
+    sendOnSerial(data, SENT_BYTES_LENGTH);
+    sendOnObjenious(data);
     sendADCValues();
     sleepAfterSend();
     
@@ -122,9 +124,9 @@ void idleBlink() {
   board.powerDown();
 }
 
-void sendOnObjenious(byte batteryLevelBytes[]) {
+void sendOnObjenious(byte data[]) {
   if (ENABLE_OBJENIOUS) {
-    sendData(batteryLevelBytes, SENT_BYTES_LENGTH);
+    sendData(data, SENT_BYTES_LENGTH);
     sendObjeniousIndex(objeniousMessageCount);
     objeniousMessageCount++;
   }
