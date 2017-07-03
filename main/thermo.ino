@@ -1,4 +1,4 @@
-#define THERM_PIN 5
+#define THERM_PIN 4
 #define PAD       10000      // Pad Resistance
 
 void initTherm() {
