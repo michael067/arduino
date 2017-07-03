@@ -139,7 +139,10 @@ void checkObjeniousReset() {
     board.setWatchdog(DELAY_1S);
     board.powerDown();   
     // sleeping...
+    //reset counters
     wdgIndex--;
+    objeniousMessageCount = 0;
+        
     board.setWatchdog(DELAY_8S);    
     turnBlueLedOFF();
     turnGreenLedOFF();
