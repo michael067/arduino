@@ -94,6 +94,14 @@ void setup()
 		SerialUSB.print("ARM_TYPE_N8_LD Detected.\r\n");
 		break;
 		
+		case ARM_TYPE_N8_SFU:
+		SerialUSB.print("ARM_TYPE_N8_SFU Detected.\r\n");
+		break;
+		
+		case ARM_TYPE_N8_SFD:
+		SerialUSB.print("ARM_TYPE_N8_SFD Detected.\r\n");
+		break;
+		
 		case ARM_TYPE_N8_LW:
 		SerialUSB.print("ARM_TYPE_N8_LW Detected.\r\n");
 		break;
@@ -195,23 +203,23 @@ void printArmErr(armError_t err)
 		break;
 
 		case ARM_ERR_ARM_GO_AT:
-			SerialUSB.print("ARM_ERR_ARM_GO_AT: 'ARM commend Error, can't switch to AT commend.'\r\n");
+			SerialUSB.print("ARM_ERR_ARM_GO_AT: 'ARM command Error, can't switch to AT command.'\r\n");
 		break;
 
 		case ARM_ERR_ARM_BACK_AT:
-			SerialUSB.print("ARM_ERR_ARM_BACK_AT: 'ARM commend Error, can't quit AT commend.'\r\n");
+			SerialUSB.print("ARM_ERR_ARM_BACK_AT: 'ARM command Error, can't quit AT command.'\r\n");
 		break;
 
 		case ARM_ERR_ARM_CMD:
-			SerialUSB.print("ARM_ERR_ARM_CMD: 'ARM commend Error, from AT commend.'\r\n");
+			SerialUSB.print("ARM_ERR_ARM_CMD: 'ARM command Error, from AT command.'\r\n");
 		break;
 
 		case ARM_ERR_ARM_GET_REG:
-			SerialUSB.print("ARM_ERR_ARM_GET_REG: 'ARM commend Error, from get register.'\r\n");
+			SerialUSB.print("ARM_ERR_ARM_GET_REG: 'ARM command Error, from get register.'\r\n");
 		break;
 
 		case ARM_ERR_ARM_SET_REG:
-			SerialUSB.print("ARM_ERR_ARM_SET_REG: 'ARM commend Error, from set register.'\r\n");
+			SerialUSB.print("ARM_ERR_ARM_SET_REG: 'ARM command Error, from set register.'\r\n");
 		break;
 
 		default:
