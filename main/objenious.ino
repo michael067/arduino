@@ -1,4 +1,3 @@
-#include <ATIM_LoRa.h> //ATIM library for LoRaWAN connection
 #define LED_DELAY 500
 
 //Instance of  the class Arm

@@ -2,7 +2,7 @@
 // Include
 // ------------------------------------------------------------------
 #include <TheAirBoard.h>
-#include <ATIM_LoRa.h> //ATIM library for LoRaWAN connection
+#include <arm.h> //ATIM library for LoRaWAN connection
 
 // ---------------------------------
 // Debug flags
