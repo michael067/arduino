@@ -29,7 +29,7 @@
 #endif
 
 #define IDLE_DELAY    50
-#define SENT_BYTES_LENGTH 5
+#define SENT_BYTES_LENGTH 7
 #ifndef OBJENIOUS_MESSAGE_THRESHOLD
 #define OBJENIOUS_MESSAGE_THRESHOLD 100
 #endif
@@ -92,6 +92,7 @@ void loop()
     byte data[SENT_BYTES_LENGTH];
     getBatteryData(data);
     getThermData(data);
+    setupInternalTemp(data, board.getTemp());
     
     sendOnSerial(data, SENT_BYTES_LENGTH);
     sendOnObjenious(data);

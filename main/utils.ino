@@ -3,6 +3,8 @@
 #define BATTERY_STATS_INDEX 2
 #define THERM_DATA_1  3
 #define THERM_DATA_2  4
+#define INTERNAL_THERM_DATA_1  5
+#define INTERNAL_THERM_DATA_2  6
 
 void floatToByte(float source, byte* returnBytes) {
   int intVolt = int(source * 100);  
@@ -21,4 +23,10 @@ void getThermData(byte* batteryLevelBytes) {
   int therm = parseThermistor(getADCThermValue()) * 100;    
   batteryLevelBytes[THERM_DATA_1] = byte(therm >> 8);
   batteryLevelBytes[THERM_DATA_2] = byte(therm); 
+}
+
+void setupInternalTemp(byte* batteryLevelBytes, double internalTemp) {
+  int therm = internalTemp * 100;
+  batteryLevelBytes[INTERNAL_THERM_DATA_1] = byte(therm >> 8);
+  batteryLevelBytes[INTERNAL_THERM_DATA_2] = byte(therm); 
 }
