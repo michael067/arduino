@@ -15,7 +15,7 @@ armError_t configObjenious() {
   Objenious.LwEnableTxAdaptiveChannel(true);
   Objenious.LwEnableRx2Adaptive(true);
   Objenious.LwEnableOtaa(true);
-  Objenious.LwSetPortField(0x0a);
+  Objenious.LwSetPortField(10);
   Objenious.SetLed(ARM_LED_ON_RF);
 
   return Objenious.UpdateConfig();
