@@ -116,10 +116,18 @@ void sleepAfterSend() {
 }
 
 void idleBlink() {
-  turnBlueLedON();
+  if (usbPlugged()) {
+    if (isCharged()) {
+      turnGreenLedON();
+    } else {
+      turnRedLedON();
+    }
+  } else {
+    turnBlueLedON();
+  }
   board.setWatchdog(BLINK_DELAY);
   board.powerDown();  
-  turnBlueLedOFF();
+  turnLedsOff();
   wdgIndex--;
   board.setWatchdog(DELAY_8S);
   board.powerDown();

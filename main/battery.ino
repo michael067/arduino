@@ -18,6 +18,10 @@ boolean isBatteryLow() {
   return batteryLevel() < LOWBAT;
 }
 
+boolean isCharged() {
+  return digitalRead(NCHG);
+}
+
 int getVUSB() {
   return analogRead(VUSB);
 }

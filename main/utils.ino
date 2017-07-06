@@ -15,7 +15,8 @@ void floatToByte(float source, byte* returnBytes) {
 void getBatteryData(byte* batteryLevelBytes) {
   float batLevel = batteryLevel();    
   floatToByte(batLevel, batteryLevelBytes);
-  batteryLevelBytes[BATTERY_STATS_INDEX] = (usbPlugged()) ? 0x10 : 0x00;
+  batteryLevelBytes[BATTERY_STATS_INDEX] = (isCharged()) ? 0x40 : 0x00;
+  batteryLevelBytes[BATTERY_STATS_INDEX] += (usbPlugged()) ? 0x10 : 0x00;
   batteryLevelBytes[BATTERY_STATS_INDEX] += (isBatteryLow()) ? 0x01 : 0x00; 
 }
 
