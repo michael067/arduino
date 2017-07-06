@@ -1,4 +1,8 @@
+#define LOWBAT     3.65 // battery low voltage threshold in V - objenious level !
+
+#ifndef LOWBAT
 #define LOWBAT     3.1 // battery low voltage threshold in V
+#endif
 #define VF         1.2 // SML-P11VT forward voltage in V (under current adjusted)
 #define USB_MIDDLE_COMP 500
 
