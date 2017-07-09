@@ -53,7 +53,13 @@ void sendData(byte bytes[], int arrayLength) {
 }
 
 void rebootObjenious() {
-  armError_t err = Objenious.Reboot();
+  armError_t err = initObjenious();
+  if (err != ARM_ERR_NONE) {
+    turnRedLedON();
+    delay(LED_DELAY);
+    return;
+  }
+  err = configObjenious();
   if (err != ARM_ERR_NONE) {
     turnRedLedON();
     delay(LED_DELAY);
