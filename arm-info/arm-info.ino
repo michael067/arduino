@@ -152,16 +152,19 @@ void setup()
      SerialUSB.print("\r\n");
      
      SerialUSB.print("dev eui: ");
+     SerialUSB.print((unsigned long) long(devEui >> 32), HEX);
      SerialUSB.print((unsigned long) devEui, HEX);
      SerialUSB.print("\r\n");
 
      SerialUSB.print("app eui: ");
+     SerialUSB.print((unsigned long) long(appEui >> 32), HEX);
      SerialUSB.print((unsigned long) appEui, HEX);
      SerialUSB.print("\r\n");
 
-//     SerialUSB.print("app key: ");
-//     SerialUSB.print(appKey);
-//     SerialUSB.print("\r\n");
+     SerialUSB.print("app key: ");
+//     SerialUSB.print((unsigned long) long(appKey >> 32), HEX);
+//     SerialUSB.print((unsigned long) appKey, HEX);
+     SerialUSB.print("\r\n");
 //
 //     SerialUSB.print("network session key: ");
 //     SerialUSB.print((unsigned long) nwkSKey, HEX);
