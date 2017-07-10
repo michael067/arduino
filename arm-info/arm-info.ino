@@ -162,8 +162,10 @@ void setup()
      SerialUSB.print("\r\n");
 
      SerialUSB.print("app key: ");
-//     SerialUSB.print((unsigned long) long(appKey >> 32), HEX);
-//     SerialUSB.print((unsigned long) appKey, HEX);
+     SerialUSB.print((unsigned long) long(appKey.msb >> 32), HEX);
+     SerialUSB.print((unsigned long) appKey.msb, HEX);
+     SerialUSB.print((unsigned long) long(appKey.lsb >> 32), HEX);
+     SerialUSB.print((unsigned long) appKey.lsb, HEX);
      SerialUSB.print("\r\n");
 //
 //     SerialUSB.print("network session key: ");
